@@ -1,0 +1,10 @@
+package="svnserveadmin"
+displayname="Svnserve Administration Console"
+description="An administration console for Subversion server"
+version="1.0"
+maintainer="www.jozeflang.com"
+arch="noarch"
+dsmappname="SYNO.SDS.svnserveadmin"
+thirdparty="yes"
+
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+PACKAGE_DIR="/var/packages/${SYNOPKG_PKGNAME}"
+ETC_DIR="${PACKAGE_DIR}/etc" 
+CONFIGURATION_FILE=${ETC_DIR}/svnserveadmin.conf
+
+# Make a symbolic link in /usr/local/etc/rc.d/ to a start-stop-status script
+ln -s ${PACKAGE_DIR}/scripts/start-stop-status /usr/local/etc/rc.d/${SYNOPKG_PKGNAME}.sh
+
+echo "svnserve_binary_path=/opt/bin" >> ${CONFIGURATION_FILE}
+echo "svn_path=/volume1/svn" >> ${CONFIGURATION_FILE}
+
+exit 0

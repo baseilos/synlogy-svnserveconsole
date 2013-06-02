@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PACKAGE_DIR="/var/packages/${SYNOPKG_PKGNAME}"
+ETC_DIR="${PACKAGE_DIR}/etc" 
+CONFIGURATION_FILE=${ETC_DIR}/svnserveadmin.conf
+
+if [ "UNINSTALL" == "$SYNOPKG_PKG_STATUS" ];
+  # Remove a symbolic link to start-stop-status script
+  rm /usr/local/etc/rc.d/${SYNOPKG_PKGNAME}.sh
+  rm ${CONFIGURATION_FILE}
+fi
+
+
+exit 0

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+PACKAGE_DIR="/var/packages/${SYNOPKG_PKGNAME}"
+TARGET="${PACKAGE_DIR}/target"
+ETC_DIR="${PACKAGE_DIR}/etc" 
+CONFIGURATION_FILE=${ETC_DIR}/svnserveadmin.conf
+
+case "$1" in
+	start)   
+		logger -t ${SYNOPKG_PKGNAME} -p warning "Service starting"
+		# Read configuration file
+		source ${CONFIGURATION_FILE}
+		${svnserve_binary_path}/svnserve -d -r ${svn_path}
+		;;
+	stop)   
+		logger -t ${SYNOPKG_PKGNAME} -p warning "Service stoping"
+		killall svnserve
+		;;
+	restart) 
+		# do nothing
+		;;
+	status) 
+ 		PROCESS_PID=`pidof svnserve`
+		if [ -z "${PROCESS_PID}" ]; then
+			exit 1
+		fi
+		;;
+	log)	
+		
+		LOGFILE="/tmp/${SYNOPKG_PKGNAME}.log"
+		grep "${SYNOPKG_PKGNAME}:" /var/log/messages > ${LOGFILE}
+		if [ $? -eq 0 ]; then
+			echo "${LOGFILE}"
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status|log}" >&2
+		exit 1
+		;;
+esac
+
+exit 0
